@@ -12,11 +12,16 @@ namespace RandomPowerGates
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        SpriteFont textFont;
+        TextManager textManager;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            //seting HD resolution of screen
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
         }
 
         /// <summary>
@@ -28,8 +33,9 @@ namespace RandomPowerGates
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            
             base.Initialize();
+            
         }
 
         /// <summary>
@@ -40,8 +46,14 @@ namespace RandomPowerGates
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            textFont = Content.Load<SpriteFont>("defaultTextFont");
+            textManager = new TextManager(textFont);
+            textManager.addStaticText("test1", new Vector2(200, 200), Color.Black);
+            textManager.addStaticText("test2", new Vector2(200, 300), Color.Black);
+            textManager.addStaticText("test3", new Vector2(300, 200), Color.Black);
+            Player player = new Player(new Vector2(200, 200));
+            player.LoadContent(Content);
+            
         }
 
         /// <summary>
@@ -76,7 +88,10 @@ namespace RandomPowerGates
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            //drawing code here
+            textManager.Draw(spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
