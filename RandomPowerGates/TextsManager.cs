@@ -16,13 +16,14 @@ namespace RandomPowerGates
 
         public TextManager(SpriteFont spriteFont)
         {
-            this.textFont = spriteFont;
+            textFont = spriteFont;
         }
 
         public void addStaticText(string text, Vector2 textPosition, Color textColor)
         {
             staticTexts.Add(new staticText(text, textPosition, textColor));
         }
+
         public void addDynamicText()
         {
             throw new NotImplementedException();
@@ -36,6 +37,7 @@ namespace RandomPowerGates
             }
         }
     }
+
     class staticText
     {
         public string text { get; private set; }

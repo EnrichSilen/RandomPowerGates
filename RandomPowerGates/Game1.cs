@@ -12,8 +12,10 @@ namespace RandomPowerGates
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        SpriteFont textFont;
         TextManager textManager;
+        MoveManager moveManager;
+        WallsManager wallsManager;
+        Wall wall;
 
         public Game1()
         {
@@ -46,13 +48,17 @@ namespace RandomPowerGates
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            textFont = Content.Load<SpriteFont>("defaultTextFont");
-            textManager = new TextManager(textFont);
-            textManager.addStaticText("test1", new Vector2(200, 200), Color.Black);
-            textManager.addStaticText("test2", new Vector2(200, 300), Color.Black);
-            textManager.addStaticText("test3", new Vector2(300, 200), Color.Black);
-            Player player = new Player(new Vector2(200, 200));
-            player.LoadContent(Content);
+            textManager = new TextManager(Content.Load<SpriteFont>("defaultTextFont"));
+            moveManager = new MoveManager();
+            wallsManager = new WallsManager();
+
+            //Player init and content loading
+            Global.instance.player = new Player(new Vector2(200, 200), 100);
+            Global.instance.player.LoadContent(Content);
+            //Walls init and content loading
+            wallsManager.addWall(WallsManager.WallType.standart, new Vector2(300, 300));
+            wallsManager.LoadContent(Content);
+            
             
         }
 
@@ -75,8 +81,9 @@ namespace RandomPowerGates
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            moveManager.Move(Keyboard.GetState());
             // TODO: Add your update logic here
-
+            Global.instance.player.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -89,8 +96,13 @@ namespace RandomPowerGates
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            //drawing code here
+
+            //drawing code starts here
+            Global.instance.player.Draw(spriteBatch);
             textManager.Draw(spriteBatch);
+            wallsManager.Draw(spriteBatch);
+            //drawing code ends here
+
             spriteBatch.End();
 
             base.Draw(gameTime);

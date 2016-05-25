@@ -1,4 +1,3 @@
-C:\Users\Enrich\Documents\Visual Studio 2015\Projects\C#\Monogame\RandomPowerGates\RandomPowerGates\bin\Windows\x86\Debug\Content\Backgound\wall-standart.png
 C:\Users\Enrich\Documents\Visual Studio 2015\Projects\C#\Monogame\RandomPowerGates\RandomPowerGates\bin\Windows\x86\Debug\Content\Player\Player.png
 C:\Users\Enrich\Documents\Visual Studio 2015\Projects\C#\Monogame\RandomPowerGates\RandomPowerGates\bin\Windows\x86\Debug\RandomPowerGates.exe
 C:\Users\Enrich\Documents\Visual Studio 2015\Projects\C#\Monogame\RandomPowerGates\RandomPowerGates\bin\Windows\x86\Debug\RandomPowerGates.pdb
@@ -25,3 +24,5 @@ C:\Users\Enrich\Documents\Visual Studio 2015\Projects\C#\Monogame\RandomPowerGat
 C:\Users\Enrich\Documents\Visual Studio 2015\Projects\C#\Monogame\RandomPowerGates\RandomPowerGates\obj\x86\Debug\RandomPowerGates.exe
 C:\Users\Enrich\Documents\Visual Studio 2015\Projects\C#\Monogame\RandomPowerGates\RandomPowerGates\obj\x86\Debug\RandomPowerGates.pdb
 C:\Users\Enrich\Documents\Visual Studio 2015\Projects\C#\Monogame\RandomPowerGates\RandomPowerGates\bin\Windows\x86\Debug\Content\defaultTextFont.xnb
+C:\Users\Enrich\Documents\Visual Studio 2015\Projects\C#\Monogame\RandomPowerGates\RandomPowerGates\obj\x86\Debug\RandomPowerGates.csprojResolveAssemblyReference.cache
+C:\Users\Enrich\Documents\Visual Studio 2015\Projects\C#\Monogame\RandomPowerGates\RandomPowerGates\bin\Windows\x86\Debug\Content\Background\wall-standart.png

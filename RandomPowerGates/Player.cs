@@ -12,14 +12,16 @@ namespace RandomPowerGates
 {
     class Player : AnimatedSprite
     {
-        public Player(Vector2 position) : base(position)
+        public float objectSpeed = 3.5f;
+        public Player(Vector2 position, int timePerFrame) : base(position)
         {
-            
+            base.timePerFrame = timePerFrame;
         }
 
         public void LoadContent(ContentManager contentManager)
         {
             objectTexture = contentManager.Load<Texture2D>("Player/Player.png");
+            AddAnimation(8);
         }
 
     }
