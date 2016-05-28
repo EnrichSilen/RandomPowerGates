@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace RandomPowerGates
 {
@@ -19,6 +20,13 @@ namespace RandomPowerGates
         private int frameWidth;
         protected int timePerFrame = 500;
         private int timeSinceLastFrame = 0;
+        protected bool isPlayer;
+        Rectangle objectRectangle;
+        Vector2 origin;
+        Vector2 direction;
+
+
+
         public AnimatedSprite(Vector2 position)
         {
             this.position = position;
@@ -41,6 +49,12 @@ namespace RandomPowerGates
 
         public void Update(GameTime gameTime)
         {
+            objectRectangle = new Rectangle((int)position.X, (int)position.Y, frameWidth, objectTexture.Height);
+            origin = new Vector2(objectRectangle.Width / 2, objectRectangle.Height / 2);
+
+            direction = new Vector2(Global.instance.crosshair.position.X - position.X, Global.instance.crosshair.position.Y - position.Y);
+            Global.instance.angle = -(float)Math.Atan2(direction.X, direction.Y);
+
             timeSinceLastFrame += gameTime.ElapsedGameTime.Milliseconds;
             objectBounds = new Rectangle((int)position.X, (int)position.Y, frameWidth, objectTexture.Height);
             if (timeSinceLastFrame >= timePerFrame)
@@ -55,11 +69,19 @@ namespace RandomPowerGates
 
                 timeSinceLastFrame = 0;
             }
-        }
 
+        }
+        //float angle = 0;
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(objectTexture, position,objectRectangles[frameIndex], Color.White);
+            if(isPlayer)
+                spriteBatch.Draw(objectTexture, position, objectRectangles[frameIndex], Color.White);
+            else
+            {
+                //angle += 0.1f ;
+                //spriteBatch.Draw(objectTexture, position, objectRectangles[frameIndex],Color.White, angle, origin, 1, SpriteEffects.None,0);
+                //spriteBatch.Draw(objectTexture, objectRectangle, objectRectangles[frameIndex],Color.White, angle, origin, SpriteEffects.None, 1);
+            }
         }
     }
 }

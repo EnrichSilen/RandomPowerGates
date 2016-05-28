@@ -16,11 +16,13 @@ namespace RandomPowerGates
         public Player(Vector2 position, int timePerFrame) : base(position)
         {
             base.timePerFrame = timePerFrame;
+            isPlayer = true;
         }
 
-        public void LoadContent(ContentManager contentManager)
+        public void LoadContent(ContentManager contentManager, string texturePath)
         {
-            objectTexture = contentManager.Load<Texture2D>("Player/Player.png");
+            //"Player/Player.png"
+            objectTexture = contentManager.Load<Texture2D>(texturePath);
             AddAnimation(8);
         }
 

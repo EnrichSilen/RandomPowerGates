@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
 
 namespace RandomPowerGates
 {
@@ -12,10 +14,6 @@ namespace RandomPowerGates
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        TextManager textManager;
-        MoveManager moveManager;
-        WallsManager wallsManager;
-        Wall wall;
 
         public Game1()
         {
@@ -23,7 +21,7 @@ namespace RandomPowerGates
             Content.RootDirectory = "Content";
             //seting HD resolution of screen
             graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferHeight = 800;
         }
 
         /// <summary>
@@ -34,8 +32,17 @@ namespace RandomPowerGates
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-            
+            Global.instance.crosshair = new Crosshair();
+            Global.instance.player = new Player(new Vector2(200, 200), 100);
+            Global.instance.textManager = new TextManager(Content.Load<SpriteFont>("defaultTextFont"));
+            Global.instance.moveManager = new MoveManager();
+            Global.instance.mapManager = new MapManager();
+            Global.instance.atackManager = new AtackManager();
+
+            Global.instance.mapManager.Initialize();
+
+            Global.instance.windowWidth = Window.ClientBounds.Width;
+            Global.instance.windowHeight = Window.ClientBounds.Height;
             base.Initialize();
             
         }
@@ -48,17 +55,15 @@ namespace RandomPowerGates
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            textManager = new TextManager(Content.Load<SpriteFont>("defaultTextFont"));
-            moveManager = new MoveManager();
-            wallsManager = new WallsManager();
+            
+
 
             //Player init and content loading
-            Global.instance.player = new Player(new Vector2(200, 200), 100);
-            Global.instance.player.LoadContent(Content);
+            Global.instance.player.LoadContent(Content, "Player/Player.png");
+            Global.instance.crosshair.LoadContent(Content, "Player/Crosshair.png");
             //Walls init and content loading
-            wallsManager.addWall(WallsManager.WallType.standart, new Vector2(300, 300));
-            wallsManager.LoadContent(Content);
-            
+            Global.instance.mapManager.LoadContent(Content);
+            Global.instance.projectileTexture = Content.Load<Texture2D>("Player/Projectile.png");
             
         }
 
@@ -78,15 +83,22 @@ namespace RandomPowerGates
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            Debug.Write("debug hello");
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            moveManager.Move(Keyboard.GetState());
-            // TODO: Add your update logic here
+            Global.instance.moveManager.Move(Keyboard.GetState());
             Global.instance.player.Update(gameTime);
+            Global.instance.crosshair.Update(gameTime, Mouse.GetState());
+            Global.instance.atackManager.Update(gameTime, Content);
+
+            //if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+
+            //Global.instance.projectileTexture = Content.Load<Texture2D>("Backgroun/madDIck");
+
             base.Update(gameTime);
         }
-
+        
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -97,10 +109,13 @@ namespace RandomPowerGates
 
             spriteBatch.Begin();
 
-            //drawing code starts here
+            //drawing code starts here 
+            Global.instance.atackManager.Draw(spriteBatch);
+            Global.instance.textManager.Draw(spriteBatch);
+            Global.instance.mapManager.Draw(spriteBatch);
+            Global.instance.crosshair.Draw(spriteBatch);
             Global.instance.player.Draw(spriteBatch);
-            textManager.Draw(spriteBatch);
-            wallsManager.Draw(spriteBatch);
+
             //drawing code ends here
 
             spriteBatch.End();

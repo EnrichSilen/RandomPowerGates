@@ -40,9 +40,9 @@ namespace RandomPowerGates
 
     class staticText
     {
-        public string text { get; private set; }
-        public Vector2 textPosition { get; private set; }
-        public Color textColor { get; private set; }
+        public string text;
+        public Vector2 textPosition;
+        public Color textColor;
         public staticText(string text, Vector2 textPosition, Color textColor)
         {
             this.text = text;
