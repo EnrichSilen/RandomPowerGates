@@ -64,6 +64,7 @@ namespace RandomPowerGates
                 return true;
             else
                 return false;
+
             foreach (Wall w in Global.instance.walls)
             {
                 if (rectangle.Intersects(w.GetWallBounds()))
@@ -71,7 +72,6 @@ namespace RandomPowerGates
                 else
                     return false;
             }
-            return false;
         }
         private void outOfBorders()
         {// Global.instance.player.position.X 

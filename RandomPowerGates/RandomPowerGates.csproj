@@ -38,6 +38,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AiManager.cs" />
     <Compile Include="AnimatedSprite.cs" />
     <Compile Include="Crosshair.cs" />
     <Compile Include="Game1.cs" />
@@ -52,9 +53,6 @@
     <Compile Include="Wall.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="C3.XNA.Primitives2D">
-      <HintPath>..\..\..\..\..\..\..\Desktop\C3.XNA.Primitives2D.dll</HintPath>
-    </Reference>
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
@@ -77,7 +75,7 @@
     <Content Include="Content\Player\Player.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Player\Player2.png">
+    <Content Include="Content\Player\AI.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Player\Projectile.png">

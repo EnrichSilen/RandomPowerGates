@@ -14,6 +14,7 @@ namespace RandomPowerGates
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Random rng = new Random();
 
         public Game1()
         {
@@ -38,6 +39,7 @@ namespace RandomPowerGates
             Global.instance.moveManager = new MoveManager();
             Global.instance.mapManager = new MapManager();
             Global.instance.atackManager = new AtackManager();
+            Global.instance.aiManager = new AiManager();
 
             Global.instance.mapManager.Initialize();
 
@@ -64,7 +66,9 @@ namespace RandomPowerGates
             //Walls init and content loading
             Global.instance.mapManager.LoadContent(Content);
             Global.instance.projectileTexture = Content.Load<Texture2D>("Player/Projectile.png");
-            
+            Global.instance.aiManager.LoadContent(Content);
+
+
         }
 
         /// <summary>
@@ -91,10 +95,15 @@ namespace RandomPowerGates
             Global.instance.player.Update(gameTime);
             Global.instance.crosshair.Update(gameTime, Mouse.GetState());
             Global.instance.atackManager.Update(gameTime, Content);
+            Global.instance.aiManager.Update(gameTime);
 
-            //if (Mouse.GetState().LeftButton == ButtonState.Pressed)
-
-            //Global.instance.projectileTexture = Content.Load<Texture2D>("Backgroun/madDIck");
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                Global.instance.aiManager.addAI(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
+                Global.instance.aiManager.LoadContent(Content);
+                Global.instance.npcs[Global.instance.npcs.Count - 1].speed = rng.Next(1, 4);
+            }
+            //Global.instance.projectileTexture = Content.Load<Texture2D>("Backgroun/non");
 
             base.Update(gameTime);
         }
@@ -113,8 +122,10 @@ namespace RandomPowerGates
             Global.instance.atackManager.Draw(spriteBatch);
             Global.instance.textManager.Draw(spriteBatch);
             Global.instance.mapManager.Draw(spriteBatch);
+            Global.instance.aiManager.Draw(spriteBatch);
             Global.instance.crosshair.Draw(spriteBatch);
             Global.instance.player.Draw(spriteBatch);
+            
 
             //drawing code ends here
 

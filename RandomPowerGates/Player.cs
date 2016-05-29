@@ -13,10 +13,9 @@ namespace RandomPowerGates
     class Player : AnimatedSprite
     {
         public float objectSpeed = 3.5f;
-        public Player(Vector2 position, int timePerFrame) : base(position)
+        public Player(Vector2 position, int timePerFrame) : base(position, timePerFrame)
         {
-            base.timePerFrame = timePerFrame;
-            isPlayer = true;
+
         }
 
         public void LoadContent(ContentManager contentManager, string texturePath)

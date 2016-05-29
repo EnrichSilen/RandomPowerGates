@@ -27,8 +27,9 @@ namespace RandomPowerGates
 
 
 
-        public AnimatedSprite(Vector2 position)
+        public AnimatedSprite(Vector2 position, int timePerFrame)
         {
+            this.timePerFrame = timePerFrame;
             this.position = position;
         }
 
@@ -74,14 +75,12 @@ namespace RandomPowerGates
         //float angle = 0;
         public void Draw(SpriteBatch spriteBatch)
         {
-            if(isPlayer)
                 spriteBatch.Draw(objectTexture, position, objectRectangles[frameIndex], Color.White);
-            else
-            {
+            
                 //angle += 0.1f ;
                 //spriteBatch.Draw(objectTexture, position, objectRectangles[frameIndex],Color.White, angle, origin, 1, SpriteEffects.None,0);
                 //spriteBatch.Draw(objectTexture, objectRectangle, objectRectangles[frameIndex],Color.White, angle, origin, SpriteEffects.None, 1);
-            }
+            
         }
     }
 }

@@ -28,7 +28,6 @@ namespace RandomPowerGates
         public Wall wall1;
         public Wall wall2;
         public Wall wall3;
-
         //
         public Ground background;
         //Player
@@ -41,6 +40,9 @@ namespace RandomPowerGates
         public TextManager textManager;
         //Movement
         public MoveManager moveManager;
+        //AI & NPX
+        public AiManager aiManager;
+        public List<Npc> npcs = new List<Npc>();
         
         private Global() { }
 
