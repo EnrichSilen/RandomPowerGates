@@ -12,7 +12,7 @@ namespace RandomPowerGates
     class TextManager
     {
         private SpriteFont textFont;
-        public List<staticText> staticTexts = new List<staticText>();
+        public List<StaticText> staticTexts = new List<StaticText>();
 
         public TextManager(SpriteFont spriteFont)
         {
@@ -21,7 +21,7 @@ namespace RandomPowerGates
 
         public void addStaticText(string text, Vector2 textPosition, Color textColor)
         {
-            staticTexts.Add(new staticText(text, textPosition, textColor));
+            staticTexts.Add(new StaticText(text, textPosition, textColor));
         }
 
         public void addDynamicText()
@@ -31,19 +31,19 @@ namespace RandomPowerGates
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach(staticText st in staticTexts)
+            foreach(StaticText st in staticTexts)
             {
                 spriteBatch.DrawString(textFont, st.text, st.textPosition, st.textColor);
             }
         }
     }
 
-    class staticText
+    class StaticText
     {
         public string text;
         public Vector2 textPosition;
         public Color textColor;
-        public staticText(string text, Vector2 textPosition, Color textColor)
+        public StaticText(string text, Vector2 textPosition, Color textColor)
         {
             this.text = text;
             this.textPosition = textPosition;

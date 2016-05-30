@@ -63,6 +63,9 @@
     <Content Include="Content\Background\Background-dev.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Background\Background-standart.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Background\Ground.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
