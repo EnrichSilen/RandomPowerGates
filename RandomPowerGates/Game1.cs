@@ -96,13 +96,14 @@ namespace RandomPowerGates
             Global.instance.crosshair.Update(gameTime, Mouse.GetState());
             Global.instance.atackManager.Update(gameTime, Content);
             Global.instance.aiManager.Update(gameTime);
-
+#if DEBUG
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
                 Global.instance.aiManager.addAI(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
                 Global.instance.aiManager.LoadContent(Content);
                 Global.instance.npcs[Global.instance.npcs.Count - 1].speed = rng.Next(1, 4);
             }
+#endif
             //Global.instance.projectileTexture = Content.Load<Texture2D>("Backgroun/non");
 
             base.Update(gameTime);

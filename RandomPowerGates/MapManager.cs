@@ -12,11 +12,6 @@ namespace RandomPowerGates
     class MapManager
     {
         #region Walls
-        public enum WallType
-        {
-            standart
-        }
-
         public void addWall(Vector2 WallPosition)
         {
             Global.instance.walls.Add(new Wall(WallPosition));
@@ -32,63 +27,63 @@ namespace RandomPowerGates
 
         public void Initialize()
         {
+#if DEBUG
+            //workin' walls
             Global.instance.wall1 = new Wall(new Vector2(40, 40));
             Global.instance.wall2 = new Wall(new Vector2(80, 40));
             Global.instance.wall3 = new Wall(new Vector2(120, 40));
 
-
-            //int x = -1, y = 0;
-            //Global.instance.map = new Map();
-            //for (int i = 0; i < Global.instance.map.defaultMap.Length; i++)
-            //{
-            //    x++;
-            //    if (Global.instance.map.defaultMap[i] == '1')   //GROUND
-            //        Global.instance.map.walls[x, y] = 0;
-            //    if (Global.instance.map.defaultMap[i] == '2')   //WALL
-            //        Global.instance.map.walls[x, y] = 1;
-            //    if (Global.instance.map.defaultMap[i] == 'n')   //NEW LINE
-            //    {
-            //        x = -1;
-            //        y++;
-            //    }
-            //}
-            //for (int i = 0; i < Global.instance.map.walls.GetLength(0); i++)
-            //{
-            //    for (int k = 0; k < Global.instance.map.walls.GetLength(1); k++)
-            //    {
-            //        if (Global.instance.map.walls[i, k] == 1)       
-            //            addGround(new Vector2(40 * i, 40 * k));
-            //        if (Global.instance.map.walls[i, k] == 1)
-            //            addWall(new Vector2(40 * i, 40 * k));
-            //    }
-            //}
-
+#else
+            //Generating map from seed
+            int x = -1, y = 0;
+            Global.instance.map = new Map();
+            for (int i = 0; i < Global.instance.map.defaultMap.Length; i++)
+            {
+                x++;
+                if (Global.instance.map.defaultMap[i] == '1')   //GROUND
+                    Global.instance.map.walls[x, y] = 1;
+                if (Global.instance.map.defaultMap[i] == '2')   //WALL
+                    Global.instance.map.walls[x, y] = 2;
+                if (Global.instance.map.defaultMap[i] == 'n')   //NEW LINE
+                {
+                    x = -1;
+                    y++;
+                }
+            }
+            for (int i = 0; i < Global.instance.map.walls.GetLength(0); i++)
+            {
+                for (int k = 0; k < Global.instance.map.walls.GetLength(1); k++)
+                {
+                    if (Global.instance.map.walls[i, k] == 1)       
+                        addGround(new Vector2(40 * i, 40 * k));
+                    if (Global.instance.map.walls[i, k] == 2)
+                        addWall(new Vector2(40 * i, 40 * k));
+                }
+            }
+#endif
             Global.instance.background = new Ground(Vector2.Zero);
-            
         }
-
         public void LoadContent(ContentManager contentManager)
         {
             foreach (Wall w in Global.instance.walls)
             {
                 w.LoadContent(contentManager, "Background/wall-standart.png");
             }
-
-            Global.instance.wall1.LoadContent(contentManager, "Background/wall-standart.png");
-            Global.instance.wall2.LoadContent(contentManager, "Background/wall-standart.png");
-            Global.instance.wall3.LoadContent(contentManager, "Background/wall-standart.png");
-
             foreach (Ground g in Global.instance.grounds)
             {
                 g.LoadContent(contentManager, "Background/Ground.png");
             }
-            Global.instance.background.LoadContent(contentManager, "Background/background-dev.png");
-            //foreach (Wall w in Global.instance.walls)
-            //{
-            //    w.setBounds();
-            //}
+#if DEBUG
+            Global.instance.background.LoadContent(contentManager, "Background/Background-dev.png");
+            //workin' walls
+            Global.instance.wall1.LoadContent(contentManager, "Background/wall-standart.png");
+            Global.instance.wall2.LoadContent(contentManager, "Background/wall-standart.png");
+            Global.instance.wall3.LoadContent(contentManager, "Background/wall-standart.png");
+            //
+#else
+            Global.instance.background.LoadContent(contentManager, "Background/Background-standart.png");
+#endif
         }
-        
         public void Draw(SpriteBatch spriteBatch)
         {
             Ground g2 = Global.instance.background;
@@ -97,22 +92,24 @@ namespace RandomPowerGates
             {
                 spriteBatch.Draw(w.GetWallTexture(), w.position, Color.White);
             }
-
             foreach (Ground g in Global.instance.grounds)
             {
                 spriteBatch.Draw(g.groundTexture, g.groundPosition, null, Color.White, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 0f);
             }
+#if DEBUG
+            //workin' walls
             spriteBatch.Draw(Global.instance.wall1.GetWallTexture(), Global.instance.wall1.position, Color.White);
             spriteBatch.Draw(Global.instance.wall2.GetWallTexture(), Global.instance.wall2.position, Color.White);
             spriteBatch.Draw(Global.instance.wall3.GetWallTexture(), Global.instance.wall3.position, Color.White);
-
+            //
+#endif
         }
     }
 
     class Map
     {
         public string defaultMap = "0n0n0n0n000021212121n0002121212";
-        public int[,] walls = new int[16, 10];
+        public int[,] walls = new int[32, 20];
 
         public Map()
         {
