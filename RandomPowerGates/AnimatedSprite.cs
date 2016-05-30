@@ -1,39 +1,38 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace RandomPowerGates
 {
     public abstract class AnimatedSprite
     {
-        //pozice objektu
         public Vector2 position;
-        //texura objektu
         protected Texture2D objectTexture;
-        //jednotlivé pohledy z animace
         private Rectangle[] objectRectangles;
-        //kolizní zóna
         public Rectangle objectBounds;
-        //index aktuálního pohlecu
         private int frameIndex;
-        //šířka jednoho pohledu
         private int frameWidth;
-        //počet milisekund mezi přepnutí pohledu
         protected int timePerFrame = 500;
-        //počet milisekund od poslední změny pohledu
         private int timeSinceLastFrame = 0;
-        //směr jakým se hráč "kouká" (směrěm ke kurzoru)
+        protected bool isPlayer;
+        Rectangle objectRectangle;
+        Vector2 origin;
         Vector2 direction;
 
 
-        //konstruktor objektu
+
         public AnimatedSprite(Vector2 position, int timePerFrame)
         {
             this.timePerFrame = timePerFrame;
             this.position = position;
         }
-        //metoda na přidání animace
+
         public void AddAnimation(int frames)
         {
             frameWidth = objectTexture.Width / frames;
@@ -43,9 +42,16 @@ namespace RandomPowerGates
                 objectRectangles[i] = new Rectangle(i * frameWidth, 0, frameWidth, objectTexture.Height);
             }
         }
-        //metoda, která se volá pravidelně a obsahuje logiku
+
+        //public int FramesPerSecond
+        //{
+        //    set { timePerFrame = (1 / value); }
+        //}
+
         public void Update(GameTime gameTime)
         {
+            objectRectangle = new Rectangle((int)position.X, (int)position.Y, frameWidth, objectTexture.Height);
+            origin = new Vector2(objectRectangle.Width / 2, objectRectangle.Height / 2);
 
             direction = new Vector2(Global.instance.crosshair.position.X - position.X, Global.instance.crosshair.position.Y - position.Y);
             Global.instance.angle = -(float)Math.Atan2(direction.X, direction.Y);
@@ -61,14 +67,20 @@ namespace RandomPowerGates
                 }
                 else
                     frameIndex++;
+
                 timeSinceLastFrame = 0;
             }
 
         }
-        //metoda, která se volá pravidelně a obsahuje vykreslování objektu
+        //float angle = 0;
         public void Draw(SpriteBatch spriteBatch)
         {
-                spriteBatch.Draw(objectTexture, position, objectRectangles[frameIndex], Color.White);            
+                spriteBatch.Draw(objectTexture, position, objectRectangles[frameIndex], Color.White);
+            
+                //angle += 0.1f ;
+                //spriteBatch.Draw(objectTexture, position, objectRectangles[frameIndex],Color.White, angle, origin, 1, SpriteEffects.None,0);
+                //spriteBatch.Draw(objectTexture, objectRectangle, objectRectangles[frameIndex],Color.White, angle, origin, SpriteEffects.None, 1);
+            
         }
     }
 }

@@ -10,43 +10,40 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace RandomPowerGates
 {
+    //Global.instance.
     class Global
     {
-        //instance objektu Global
+
+
+        //instance of Global
         public static readonly Global instance = new Global();
-        //Mapa
+        //Map
         public MapManager mapManager;
         public int windowWidth, windowHeight;
 
         public List<Wall> walls = new List<Wall>();
         public Map map;
         public List<Ground> grounds = new List<Ground>();
-
-#if DEBUG
-        //workin' walls
+        //test
         public Wall wall1;
         public Wall wall2;
         public Wall wall3;
-#endif
-        //Pozadí
+        //
         public Ground background;
-        //Hráč
+        //Player
         public Player player;
-        //Zaměřovač
         public Crosshair crosshair;
-        //Textura projektilu
         public Texture2D projectileTexture;
-        //Manažer útoku
         public AtackManager atackManager;
         public float angle;
-        //Manažer textů
+        //Texts
         public TextManager textManager;
-        //Manažer pohybu
+        //Movement
         public MoveManager moveManager;
         //AI & NPX
         public AiManager aiManager;
         public List<Npc> npcs = new List<Npc>();
-        //privátní konstruktor objektu Global znemožňující instanci objektu vytvořit
+        
         private Global() { }
 
         
