@@ -102,6 +102,7 @@ namespace RandomPowerGates
             Global.instance.atackManager.Update(gameTime);
             Global.instance.atackManager.Shoot(Content, Keyboard.GetState());
             Global.instance.aiManager.Update(gameTime);
+            Global.instance.textManager.Update(gameTime);
 
 
 

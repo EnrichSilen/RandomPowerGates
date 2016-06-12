@@ -69,13 +69,34 @@ namespace RandomPowerGates
             else
                 return false;
 #endif
+            //>
+            //udržení hráče na mapě aka dočasné řešení pro vizuální kvalitu
+            if (Global.instance.player.position.X < 40)
+                Global.instance.player.position.X = 40;
+            if (Global.instance.player.position.Y < 40)
+                Global.instance.player.position.Y = 40;
+            if ((Global.instance.player.position.X + Global.instance.player.GetWidth()) > 1240)
+                Global.instance.player.position.X = 1200;
+            if ((Global.instance.player.position.Y + Global.instance.player.GetHeight()) > 760)
+                Global.instance.player.position.Y = 720;
+
+
+            //verze 1
+            for (int i = 0; i < Global.instance.walls.Count; i++)
+            {
+                if (rectangle.Intersects(Global.instance.walls[i].objectBounds))
+                    return true;
+                else
+                    return false;
+            }
+            //verze2
             foreach (Wall w in Global.instance.walls)
             {
                 if (rectangle.Intersects(w.objectBounds))
                     return true;
                 else
                     return false;
-                
+
             }
             return false;
         }

@@ -23,7 +23,7 @@ namespace RandomPowerGates
         private void Shooting(ContentManager contentManager)
         {
             Vector2 projPos = new Vector2(Global.instance.player.position.X + (Global.instance.player.GetWidth() / 2), Global.instance.player.position.Y + (Global.instance.player.GetHeight() / 2));
-            Global.instance.projectiles.Add(new Projectile(projPos,Global.instance.playerDirection,500,8));
+            Global.instance.projectiles.Add(new Projectile(projPos,Global.instance.playerDirection,80,8));
             foreach (Projectile p in Global.instance.projectiles)
             {
                 p.LoadContent(contentManager, "Player/Projectile.png");
