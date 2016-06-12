@@ -64,7 +64,7 @@ namespace RandomPowerGates
         private bool ColisonCheck(Rectangle rectangle)
         {
 #if DEBUG
-            if (rectangle.Intersects(Global.instance.wall1.GetWallBounds()) || rectangle.Intersects(Global.instance.wall2.GetWallBounds()) || rectangle.Intersects(Global.instance.wall3.GetWallBounds()))
+            if (rectangle.Intersects(Global.instance.wall1.objectBounds) || rectangle.Intersects(Global.instance.wall2.objectBounds) || rectangle.Intersects(Global.instance.wall3.objectBounds))
                 return true;
             else
                 return false;

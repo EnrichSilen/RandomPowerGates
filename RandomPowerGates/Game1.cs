@@ -98,7 +98,7 @@ namespace RandomPowerGates
 
             Global.instance.moveManager.Move(Keyboard.GetState());
             Global.instance.player.Update(gameTime);
-            Global.instance.crosshair.Update(gameTime, Mouse.GetState());
+
             Global.instance.atackManager.Update(gameTime);
             Global.instance.atackManager.Shoot(Content, Keyboard.GetState());
             Global.instance.aiManager.Update(gameTime);
@@ -107,6 +107,7 @@ namespace RandomPowerGates
 
 
 #if DEBUG
+                        Global.instance.crosshair.Update(gameTime, Mouse.GetState());
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
                 Global.instance.aiManager.addAI(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
@@ -116,7 +117,7 @@ namespace RandomPowerGates
 #endif
             //Global.instance.projectileTexture = Content.Load<Texture2D>("Backgroun/non");
 
-            
+
             base.Update(gameTime);
         }
         
@@ -135,10 +136,11 @@ namespace RandomPowerGates
             Global.instance.atackManager.Draw(spriteBatch);
             Global.instance.textManager.Draw(spriteBatch);
             Global.instance.aiManager.Draw(spriteBatch);
-            Global.instance.crosshair.Draw(spriteBatch);
             Global.instance.player.Draw(spriteBatch);
-            
 
+#if DEBUG
+            Global.instance.crosshair.Draw(spriteBatch);
+#endif
             //drawing code ends here
 
             spriteBatch.End();
