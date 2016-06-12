@@ -94,7 +94,7 @@ namespace RandomPowerGates
             }
             foreach (Ground g in Global.instance.grounds)
             {
-                spriteBatch.Draw(g.groundTexture, g.groundPosition, null, Color.White, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 0f);
+                spriteBatch.Draw(g.groundTexture, g.groundPosition,Color.White);
             }
 #if DEBUG
             //workin' walls

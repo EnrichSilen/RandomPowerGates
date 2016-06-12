@@ -12,42 +12,51 @@ namespace RandomPowerGates
     class TextManager
     {
         private SpriteFont textFont;
-        public List<staticText> staticTexts = new List<staticText>();
+        public List<Text> Texts = new List<Text>();
 
         public TextManager(SpriteFont spriteFont)
         {
             textFont = spriteFont;
         }
 
-        public void addStaticText(string text, Vector2 textPosition, Color textColor)
+        public void addText(string text, Vector2 textPosition, Color textColor, string identifier)
         {
-            staticTexts.Add(new staticText(text, textPosition, textColor));
+            Texts.Add(new Text(text, textPosition, textColor, identifier));
         }
 
-        public void addDynamicText()
+        public void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            foreach (Text t in Texts)
+            {
+                if(t.identifier == "hp")
+                {
+                    t.text = "HP : " + Global.instance.player.hp.ToString();
+                }
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach(staticText st in staticTexts)
+            foreach(Text st in Texts)
             {
                 spriteBatch.DrawString(textFont, st.text, st.textPosition, st.textColor);
             }
         }
     }
 
-    class staticText
+    class Text
     {
         public string text;
         public Vector2 textPosition;
         public Color textColor;
-        public staticText(string text, Vector2 textPosition, Color textColor)
+        public string identifier;
+        public Text(string text, Vector2 textPosition, Color textColor, string identifier)
         {
+            
             this.text = text;
             this.textPosition = textPosition;
             this.textColor = textColor;
-    }
+            this.identifier = identifier;
+        }
     }
 }

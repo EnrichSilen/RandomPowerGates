@@ -21,6 +21,9 @@ namespace RandomPowerGates
             tempRectangle = Global.instance.player.objectBounds;
             if (keyboardState.IsKeyDown(Keys.W))
             {
+                if (Global.instance.playerDirection != Direction.up)
+                    Global.instance.playerDirection = Direction.up;
+
                 tempRectangle = Global.instance.player.objectBounds;
                 tempRectangle.Y -= (int)Global.instance.player.objectSpeed;
                 if (!ColisonCheck(tempRectangle))
@@ -28,6 +31,9 @@ namespace RandomPowerGates
             }
             if (keyboardState.IsKeyDown(Keys.S))
             {
+                if (Global.instance.playerDirection != Direction.down)
+                    Global.instance.playerDirection = Direction.down;
+
                 tempRectangle = Global.instance.player.objectBounds;
                 tempRectangle.Y += (int)Global.instance.player.objectSpeed;
                 if (!ColisonCheck(tempRectangle))
@@ -35,6 +41,9 @@ namespace RandomPowerGates
             }
             if (keyboardState.IsKeyDown(Keys.A))
             {
+                if (Global.instance.playerDirection != Direction.left)
+                    Global.instance.playerDirection = Direction.left;
+
                 tempRectangle = Global.instance.player.objectBounds;
                 tempRectangle.X -= (int)Global.instance.player.objectSpeed;
                 if (!ColisonCheck(tempRectangle))
@@ -42,7 +51,10 @@ namespace RandomPowerGates
             }
             if (keyboardState.IsKeyDown(Keys.D))
             {
-               tempRectangle = Global.instance.player.objectBounds;
+                if (Global.instance.playerDirection != Direction.right)
+                    Global.instance.playerDirection = Direction.right;
+
+                tempRectangle = Global.instance.player.objectBounds;
                 tempRectangle.X += (int)Global.instance.player.objectSpeed;
                 if (!ColisonCheck(tempRectangle))
                     Global.instance.player.position.X += Global.instance.player.objectSpeed;
@@ -59,7 +71,7 @@ namespace RandomPowerGates
 #endif
             foreach (Wall w in Global.instance.walls)
             {
-                if (rectangle.Intersects(w.GetWallBounds()))
+                if (rectangle.Intersects(w.objectBounds))
                     return true;
                 else
                     return false;

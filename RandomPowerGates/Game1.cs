@@ -65,8 +65,11 @@ namespace RandomPowerGates
             Global.instance.crosshair.LoadContent(Content, "Player/Crosshair.png");
             //Walls init and content loading
             Global.instance.mapManager.LoadContent(Content);
-            Global.instance.projectileTexture = Content.Load<Texture2D>("Player/Projectile.png");
             Global.instance.aiManager.LoadContent(Content);
+            //Atacking
+            Global.instance.projectileTexture = Content.Load<Texture2D>("Player/Projectile.png");
+            //Texts
+            Global.instance.textManager.addText("", new Vector2(1000, 100),Color.Green, "hp");
 
 
         }
@@ -85,17 +88,23 @@ namespace RandomPowerGates
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        
         protected override void Update(GameTime gameTime)
         {
-            Debug.Write("debug hello");
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape) || Global.instance.player.hp == 0)
                 Exit();
+
+            
 
             Global.instance.moveManager.Move(Keyboard.GetState());
             Global.instance.player.Update(gameTime);
             Global.instance.crosshair.Update(gameTime, Mouse.GetState());
-            Global.instance.atackManager.Update(gameTime, Content);
+            Global.instance.atackManager.Update(gameTime);
+            Global.instance.atackManager.Shoot(Content, Keyboard.GetState());
             Global.instance.aiManager.Update(gameTime);
+
+
+
 #if DEBUG
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
@@ -106,6 +115,7 @@ namespace RandomPowerGates
 #endif
             //Global.instance.projectileTexture = Content.Load<Texture2D>("Backgroun/non");
 
+            
             base.Update(gameTime);
         }
         
@@ -120,9 +130,9 @@ namespace RandomPowerGates
             spriteBatch.Begin();
 
             //drawing code starts here 
+            Global.instance.mapManager.Draw(spriteBatch);
             Global.instance.atackManager.Draw(spriteBatch);
             Global.instance.textManager.Draw(spriteBatch);
-            Global.instance.mapManager.Draw(spriteBatch);
             Global.instance.aiManager.Draw(spriteBatch);
             Global.instance.crosshair.Draw(spriteBatch);
             Global.instance.player.Draw(spriteBatch);

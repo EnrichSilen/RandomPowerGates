@@ -32,6 +32,8 @@ namespace RandomPowerGates
             this.timePerFrame = timePerFrame;
             this.position = position;
         }
+        public int GetHeight() { return objectTexture.Height; }
+        public int GetWidth() { return frameWidth; }
 
         public void AddAnimation(int frames)
         {
@@ -50,12 +52,6 @@ namespace RandomPowerGates
 
         public void Update(GameTime gameTime)
         {
-            objectRectangle = new Rectangle((int)position.X, (int)position.Y, frameWidth, objectTexture.Height);
-            origin = new Vector2(objectRectangle.Width / 2, objectRectangle.Height / 2);
-
-            direction = new Vector2(Global.instance.crosshair.position.X - position.X, Global.instance.crosshair.position.Y - position.Y);
-            Global.instance.angle = -(float)Math.Atan2(direction.X, direction.Y);
-
             timeSinceLastFrame += gameTime.ElapsedGameTime.Milliseconds;
             objectBounds = new Rectangle((int)position.X, (int)position.Y, frameWidth, objectTexture.Height);
             if (timeSinceLastFrame >= timePerFrame)

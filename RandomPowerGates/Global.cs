@@ -10,8 +10,17 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace RandomPowerGates
 {
+    public enum Direction
+    {
+        up,
+        down,
+        right,
+        left
+    }
     class Global
     {
+       
+
         //instance objektu Global
         public static readonly Global instance = new Global();
         //Mapa
@@ -34,11 +43,11 @@ namespace RandomPowerGates
         public Player player;
         //Zaměřovač
         public Crosshair crosshair;
-        //Textura projektilu
-        public Texture2D projectileTexture;
         //Manažer útoku
         public AtackManager atackManager;
-        public float angle;
+        public List<Projectile> projectiles = new List<Projectile>();
+        public Texture2D projectileTexture;
+        public Direction playerDirection;
         //Manažer textů
         public TextManager textManager;
         //Manažer pohybu

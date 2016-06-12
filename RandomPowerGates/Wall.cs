@@ -14,7 +14,7 @@ namespace RandomPowerGates
     {
         internal Vector2 position;
         private Texture2D wallTexture;
-        private Rectangle wallBounds;
+        public Rectangle objectBounds;
 
         public Wall(Vector2 position)
         {
@@ -25,7 +25,7 @@ namespace RandomPowerGates
         {
             //"Background/wall-standart.png"
             wallTexture = contentManager.Load<Texture2D>(texturePath);
-            wallBounds = new Rectangle((int)position.X, (int)position.Y, wallTexture.Width, wallTexture.Height);
+            objectBounds = new Rectangle((int)position.X, (int)position.Y, wallTexture.Width, wallTexture.Height);
 
         }
         public void setBounds()
@@ -33,7 +33,6 @@ namespace RandomPowerGates
              
         }
         public Texture2D GetWallTexture() { return wallTexture; }
-        public Rectangle GetWallBounds() { return wallBounds; }
 
 
         public void Draw(SpriteBatch spriteBatch)

@@ -13,6 +13,7 @@ namespace RandomPowerGates
     class Player : AnimatedSprite
     {
         public float objectSpeed = 3.5f;
+        public int hp = 3;
         public Player(Vector2 position, int timePerFrame) : base(position, timePerFrame)
         {
 

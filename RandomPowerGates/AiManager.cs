@@ -47,14 +47,29 @@ namespace RandomPowerGates
 
                 n.Update(gameTime);
             }
+            for (int k = 0; k < Global.instance.npcs.Count; k++)
+            {
+                for (int i = 0; i < Global.instance.projectiles.Count; i++)
+                {
+                    if (Global.instance.npcs[k].objectBounds.Intersects(Global.instance.projectiles[i].objectBounds))
+                    {
+                        Global.instance.npcs.RemoveAt(k);
+                        Global.instance.projectiles.RemoveAt(i);
+                        i--; k--;
+                    }
+                }
+            }
             for (int i = 0; i < Global.instance.npcs.Count; i++)
             {
                 if (Global.instance.npcs[i].objectBounds.Intersects(Global.instance.player.objectBounds))
-                {
-                    Global.instance.npcs.RemoveAt(i);
-                    i--;
-                }
-            }            
+                    { 
+                        Global.instance.npcs.RemoveAt(i);
+                        Global.instance.player.hp--;
+                        i--;
+                    }
+            }
+
+
         }
 
         //Vykreslení na herní plochu
