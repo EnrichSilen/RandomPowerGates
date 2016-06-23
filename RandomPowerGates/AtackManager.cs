@@ -19,7 +19,7 @@ namespace RandomPowerGates
             
         }
 
-        //metoda pro přidání NPC na herní plochu
+        //metoda pro přidání projektilu do pole
         private void Shooting(ContentManager contentManager)
         {
             Vector2 projPos = new Vector2(Global.instance.player.position.X + (Global.instance.player.GetWidth() / 2), Global.instance.player.position.Y + (Global.instance.player.GetHeight() / 2));
@@ -29,7 +29,7 @@ namespace RandomPowerGates
                 p.LoadContent(contentManager, "Player/Projectile.png");
             }
         }
-
+        //metoda třelby
         public void Shoot(ContentManager contentManager, KeyboardState keyboardState)
         {
             if (keyboardState.IsKeyDown(Keys.Space))
@@ -45,14 +45,6 @@ namespace RandomPowerGates
             
     }
 
-        //Načítání textury
-        //public void LoadContent(ContentManager contentManager)
-        //{
-        //    foreach (Projectile p in Global.instance.projectiles)
-        //    {
-        //        p.LoadContent(contentManager, "Player/Projectile.png");
-        //    }
-        //}
         //metoda vykonávající logiku
         public void Update(GameTime gameTime)
         {

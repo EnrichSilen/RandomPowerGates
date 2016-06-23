@@ -29,16 +29,10 @@ namespace RandomPowerGates
 
         public List<Wall> walls = new List<Wall>();
         public Map map;
-        public List<Ground> grounds = new List<Ground>();
+        public List<Portal> poratls = new List<Portal>();
 
-#if DEBUG
-        //workin' walls
-        public Wall wall1;
-        public Wall wall2;
-        public Wall wall3;
-#endif
         //Pozadí
-        public Ground background;
+        public BackGround background;
         //Hráč
         public Player player;
         //Zaměřovač

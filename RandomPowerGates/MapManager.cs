@@ -20,31 +20,25 @@ namespace RandomPowerGates
         #region Background
         public void addGround(Vector2 position)
         {
-            Global.instance.grounds.Add(new Ground(position));
+            Global.instance.poratls.Add(new Portal(position));
         }
 
         #endregion
 
         public void Initialize()
         {
-#if DEBUG
-            //workin' walls
-            Global.instance.wall1 = new Wall(new Vector2(40, 40));
-            Global.instance.wall2 = new Wall(new Vector2(80, 40));
-            Global.instance.wall3 = new Wall(new Vector2(120, 40));
 
-#else
             //Generating map from seed
             int x = -1, y = 0;
-            Global.instance.map = new Map();
-            for (int i = 0; i < Global.instance.map.defaultMap.Length; i++)
+            Global.instance.map = new Map("22222222222222222222222222222222n20000000000000000000000000000002n20000000000000000000000000000002n20000000000000000000000002200002n20000000000000000000000002200002n20000000000000000000000000000002n20000000000000000000000000000002n20000000000000000000000000000002n20000000000000000000000000000002n20000000000000000000000000110002n20000000000000000000000000110002n20000000000000000000000000000002n20000000000000000000000000000002n20000000000000000000000000000002n20000000000000000000000000000002n20000000000000000000000000000002n20000000000000000000000000000002n20000000000000000000000000000002n20000000000000000000000000000002n22222222222222222222222222222222&");
+            for (int i = 0; i < Global.instance.map.mapSeed.Length; i++)
             {
                 x++;
-                if (Global.instance.map.defaultMap[i] == '1')   //GROUND
+                if (Global.instance.map.mapSeed[i] == '1')   //GROUND
                     Global.instance.map.walls[x, y] = 1;
-                if (Global.instance.map.defaultMap[i] == '2')   //WALL
+                if (Global.instance.map.mapSeed[i] == '2')   //WALL
                     Global.instance.map.walls[x, y] = 2;
-                if (Global.instance.map.defaultMap[i] == 'n')   //NEW LINE
+                if (Global.instance.map.mapSeed[i] == 'n')   //NEW LINE
                 {
                     x = -1;
                     y++;
@@ -60,8 +54,7 @@ namespace RandomPowerGates
                         addWall(new Vector2(40 * i, 40 * k));
                 }
             }
-#endif
-            Global.instance.background = new Ground(Vector2.Zero);
+            Global.instance.background = new BackGround(Vector2.Zero);
         }
         public void LoadContent(ContentManager contentManager)
         {
@@ -69,66 +62,70 @@ namespace RandomPowerGates
             {
                 w.LoadContent(contentManager, "Background/wall-standart.png");
             }
-            foreach (Ground g in Global.instance.grounds)
+            foreach (Portal g in Global.instance.poratls)
             {
                 g.LoadContent(contentManager, "Background/Ground.png");
             }
 #if DEBUG
             Global.instance.background.LoadContent(contentManager, "Background/Background-dev.png");
-            //workin' walls
-            Global.instance.wall1.LoadContent(contentManager, "Background/wall-standart.png");
-            Global.instance.wall2.LoadContent(contentManager, "Background/wall-standart.png");
-            Global.instance.wall3.LoadContent(contentManager, "Background/wall-standart.png");
-            //
 #else
             Global.instance.background.LoadContent(contentManager, "Background/Background-standart.png");
 #endif
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            Ground g2 = Global.instance.background;
-            spriteBatch.Draw(g2.groundTexture, g2.groundPosition, null, Color.White, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 1f);
+            BackGround g2 = Global.instance.background;
+            spriteBatch.Draw(g2.bcTexture, g2.bcPosition, null, Color.White, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 1f);
             foreach (Wall w in Global.instance.walls)
             {
                 spriteBatch.Draw(w.GetWallTexture(), w.position, Color.White);
             }
-            foreach (Ground g in Global.instance.grounds)
+            foreach (Portal g in Global.instance.poratls)
             {
-                spriteBatch.Draw(g.groundTexture, g.groundPosition,Color.White);
+                spriteBatch.Draw(g.portalTexture, g.groundPosition,Color.White);
             }
-#if DEBUG
-            //workin' walls
-            spriteBatch.Draw(Global.instance.wall1.GetWallTexture(), Global.instance.wall1.position, Color.White);
-            spriteBatch.Draw(Global.instance.wall2.GetWallTexture(), Global.instance.wall2.position, Color.White);
-            spriteBatch.Draw(Global.instance.wall3.GetWallTexture(), Global.instance.wall3.position, Color.White);
-            //
-#endif
         }
     }
 
     class Map
     {
-        // 1 - GROUND   2- WALL
-        public string defaultMap = "22222222222222222222222222222222n20000000000000000000000000000002n20000000000000000000000000000002n20000000000000000000000000000002n20000000000000000000000000000002n20000000000000000000000000000002n20000000000000000000000000000002n20000000000000000000000000000002n20000000000000000000000000000002n20000000000000000000000000110002n20000000000000000000000000110002n20000000000000000000000000000002n20000000000000000000000000000002n20000000000000000000000000000002n20000000000000000000000000000002n20000000000000000000000000000002n20000000000000000000000000000002n20000000000000000000000000000002n20000000000000000000000000000002n22222222222222222222222222222222&";
+        // 1 - Portal   2- WALL
+        public string mapSeed = "";
         public int[,] walls = new int[32, 20];
 
-        public Map()
+        public Map(string mapSeed)
         {
+            this.mapSeed = mapSeed;
         }
     }
 
-    class Ground
+    class Portal
     {
-        public Texture2D groundTexture;
+        public Texture2D portalTexture;
         public Vector2 groundPosition;
 
-        public Ground(Vector2 groundPosition)
+        public Portal(Vector2 portalPosition)
         {
-            this.groundPosition = groundPosition;
+            this.groundPosition = portalPosition;
         }
         public void LoadContent(ContentManager contentManager, string texturePath)
         {
-            groundTexture = contentManager.Load<Texture2D>(texturePath);
+            portalTexture = contentManager.Load<Texture2D>(texturePath);
+        }
+    }
+
+    class BackGround
+    {
+        public Texture2D bcTexture;
+        public Vector2 bcPosition;
+
+        public BackGround(Vector2 bcPosition)
+        {
+            this.bcPosition = bcPosition;
+        }
+        public void LoadContent(ContentManager contentManager, string texturePath)
+        {
+            bcTexture = contentManager.Load<Texture2D>(texturePath);
         }
     }
 }

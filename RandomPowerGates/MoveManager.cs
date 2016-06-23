@@ -13,6 +13,9 @@ namespace RandomPowerGates
 {
     class MoveManager
     {
+        List<bool> detections = new List<bool>();
+
+
         //dočasné kolizní okraje hráče
         Rectangle tempRectangle;
         //metoda volající se při každém pokusu se pohnout do jakéhokoliv směru
@@ -63,42 +66,28 @@ namespace RandomPowerGates
         //metoda testující jestli došlo ke kolizi
         private bool ColisonCheck(Rectangle rectangle)
         {
-#if DEBUG
-            if (rectangle.Intersects(Global.instance.wall1.objectBounds) || rectangle.Intersects(Global.instance.wall2.objectBounds) || rectangle.Intersects(Global.instance.wall3.objectBounds))
-                return true;
-            else
-                return false;
-#endif
             //>
-            //udržení hráče na mapě aka dočasné řešení pro vizuální kvalitu
-            if (Global.instance.player.position.X < 40)
-                Global.instance.player.position.X = 40;
-            if (Global.instance.player.position.Y < 40)
-                Global.instance.player.position.Y = 40;
-            if ((Global.instance.player.position.X + Global.instance.player.GetWidth()) > 1240)
-                Global.instance.player.position.X = 1200;
-            if ((Global.instance.player.position.Y + Global.instance.player.GetHeight()) > 760)
-                Global.instance.player.position.Y = 720;
 
-
+            detections.Clear();
             //verze 1
             for (int i = 0; i < Global.instance.walls.Count; i++)
             {
                 if (rectangle.Intersects(Global.instance.walls[i].objectBounds))
-                    return true;
+                    //return true;
+                    detections.Add(true);
                 else
-                    return false;
+                    //return false;
+                    detections.Add(false);
             }
             //verze2
-            foreach (Wall w in Global.instance.walls)
+            foreach (bool b in detections)
             {
-                if (rectangle.Intersects(w.objectBounds))
+                if (b)
                     return true;
-                else
-                    return false;
-
             }
+            detections.Clear();
             return false;
+
         }
     }
 }
