@@ -29,9 +29,13 @@ namespace RandomPowerGates
             foreach (Text t in Texts)
             {
                 if(t.identifier == "hp")
-                {
                     t.text = "HP : " + Global.instance.player.hp.ToString();
-                }
+                if (t.identifier == "points")
+                    t.text = "Body : " + Global.instance.player.points.ToString();
+#if DEBUG
+                if (t.identifier == "room")
+                    t.text = "Cimra:  : " + Global.instance.warpIndex.ToString(); 
+#endif
             }
         }
 

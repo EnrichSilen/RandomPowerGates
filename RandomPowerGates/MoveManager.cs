@@ -13,7 +13,8 @@ namespace RandomPowerGates
 {
     class MoveManager
     {
-        List<bool> detections = new List<bool>();
+        List<bool> wallsDetections = new List<bool>();
+        List<bool> portalsDetections = new List<bool>();
 
 
         //dočasné kolizní okraje hráče
@@ -66,26 +67,42 @@ namespace RandomPowerGates
         //metoda testující jestli došlo ke kolizi
         private bool ColisonCheck(Rectangle rectangle)
         {
-            //>
 
-            detections.Clear();
-            //verze 1
-            for (int i = 0; i < Global.instance.walls.Count; i++)
+            wallsDetections.Clear();
+            //Zdivo
+            for (int i = 0; i < Global.instance.walls1.Count; i++)
             {
-                if (rectangle.Intersects(Global.instance.walls[i].objectBounds))
+                if (rectangle.Intersects(Global.instance.walls1[i].objectBounds))
                     //return true;
-                    detections.Add(true);
+                    wallsDetections.Add(true);
                 else
                     //return false;
-                    detections.Add(false);
+                    wallsDetections.Add(false);
             }
-            //verze2
-            foreach (bool b in detections)
+            foreach (bool b in wallsDetections)
             {
                 if (b)
                     return true;
             }
-            detections.Clear();
+            wallsDetections.Clear();
+            portalsDetections.Clear();
+            for (int p = 0; p < Global.instance.portals1.Count; p++)
+            {
+                if (rectangle.Intersects(Global.instance.portals1[p].objectBounds))
+                    //return true;
+                    portalsDetections.Add(true);
+                else
+                    //return false;
+                    portalsDetections.Add(false);
+            }
+            foreach (bool b in portalsDetections)
+            {
+                if (b)
+                { 
+                    Global.instance.mapManager.Warp();
+                }
+            }
+            portalsDetections.Clear();
             return false;
 
         }

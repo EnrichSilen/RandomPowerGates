@@ -15,6 +15,7 @@ namespace RandomPowerGates
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Random rng = new Random();
+        
 
         public Game1()
         {
@@ -23,6 +24,9 @@ namespace RandomPowerGates
             //seting HD resolution of screen
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 800;
+#if DEBUG
+            Window.Title = "RandomPowerGates [DEBUG]"; 
+#endif
         }
 
         /// <summary>
@@ -33,16 +37,17 @@ namespace RandomPowerGates
         /// </summary>
         protected override void Initialize()
         {
+            Global.instance.contentManager = Content;
+            Global.instance.mapManager = new MapManager();
+            Global.instance.mapManager.Initialize();
             Global.instance.crosshair = new Crosshair();
             Global.instance.player = new Player(new Vector2(200, 200), 100);
             Global.instance.textManager = new TextManager(Content.Load<SpriteFont>("defaultTextFont"));
             Global.instance.moveManager = new MoveManager();
-            Global.instance.mapManager = new MapManager();
             Global.instance.atackManager = new AtackManager();
             Global.instance.aiManager = new AiManager();
-
-            Global.instance.mapManager.Initialize();
-
+            Global.instance.debugManager = new DebugManager();
+            
             Global.instance.windowWidth = Window.ClientBounds.Width;
             Global.instance.windowHeight = Window.ClientBounds.Height;
             base.Initialize();
@@ -70,6 +75,8 @@ namespace RandomPowerGates
             Global.instance.projectileTexture = Content.Load<Texture2D>("Player/Projectile.png");
             //Texts
             Global.instance.textManager.addText("", new Vector2(1000, 100),Color.Green, "hp");
+            Global.instance.textManager.addText("", new Vector2(850, 100), Color.Green, "points");
+            Global.instance.textManager.addText("", new Vector2(700, 100), Color.Green, "room");
 
 
         }
@@ -88,17 +95,19 @@ namespace RandomPowerGates
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        
+
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape) || Global.instance.player.hp == 0)
                 Exit();
 
-            
+#if DEBUG
+            Global.instance.debugManager.PressHandler(Keyboard.GetState(), Content); 
+#endif
+
 
             Global.instance.moveManager.Move(Keyboard.GetState());
             Global.instance.player.Update(gameTime);
-
             Global.instance.atackManager.Update(gameTime);
             Global.instance.atackManager.Shoot(Content, Keyboard.GetState());
             Global.instance.aiManager.Update(gameTime);
@@ -107,10 +116,10 @@ namespace RandomPowerGates
 
 
 #if DEBUG
-                        Global.instance.crosshair.Update(gameTime, Mouse.GetState());
+            Global.instance.crosshair.Update(gameTime, Mouse.GetState());
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
-                Global.instance.aiManager.addAI(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
+                Global.instance.aiManager.addNpc(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
                 Global.instance.aiManager.LoadContent(Content);
                 Global.instance.npcs[Global.instance.npcs.Count - 1].speed = rng.Next(1, 4);
             }
@@ -132,6 +141,7 @@ namespace RandomPowerGates
             spriteBatch.Begin();
 
             //drawing code starts here 
+
             Global.instance.mapManager.Draw(spriteBatch);
             Global.instance.atackManager.Draw(spriteBatch);
             Global.instance.textManager.Draw(spriteBatch);

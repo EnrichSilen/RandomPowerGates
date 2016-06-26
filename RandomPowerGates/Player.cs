@@ -14,6 +14,7 @@ namespace RandomPowerGates
     {
         public float objectSpeed = 3.5f;
         public int hp = 3;
+        public int points = 0;
         public Player(Vector2 position, int timePerFrame) : base(position, timePerFrame)
         {
 

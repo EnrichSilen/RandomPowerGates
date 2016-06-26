@@ -41,6 +41,7 @@
     <Compile Include="AiManager.cs" />
     <Compile Include="AnimatedSprite.cs" />
     <Compile Include="Crosshair.cs" />
+    <Compile Include="DebugManager.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="MapManager.cs" />
@@ -50,7 +51,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AtackManager.cs" />
     <Compile Include="TextsManager.cs" />
-    <Compile Include="Wall.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

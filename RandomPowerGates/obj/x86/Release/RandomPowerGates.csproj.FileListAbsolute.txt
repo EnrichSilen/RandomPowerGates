@@ -29,6 +29,5 @@ C:\Users\Enrich\Documents\Visual Studio 2015\Projects\C#\Monogame\RandomPowerGat
 C:\Users\Enrich\Documents\Visual Studio 2015\Projects\C#\Monogame\RandomPowerGates\RandomPowerGates\obj\x86\Release\RandomPowerGates.exe
 C:\Users\Enrich\Documents\Visual Studio 2015\Projects\C#\Monogame\RandomPowerGates\RandomPowerGates\obj\x86\Release\RandomPowerGates.pdb
 C:\Users\Enrich\Documents\Visual Studio 2015\Projects\C#\Monogame\RandomPowerGates\RandomPowerGates\bin\Windows\x86\Release\Content\Background\Background-standart.png
-C:\Users\Enrich\Documents\Visual Studio 2015\Projects\C#\Monogame\RandomPowerGates\RandomPowerGates\obj\x86\Release\RandomPowerGates.csprojResolveAssemblyReference.cache
 C:\Users\Enrich\Documents\Visual Studio 2015\Projects\C#\Monogame\RandomPowerGates\RandomPowerGates\bin\Windows\x86\Release\Content\Player\Projectile.png
 C:\Users\Enrich\Documents\Visual Studio 2015\Projects\C#\Monogame\RandomPowerGates\RandomPowerGates\bin\Windows\x86\Release\Content\Background\Ground.png

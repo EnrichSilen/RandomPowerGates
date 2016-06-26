@@ -11,15 +11,33 @@ namespace RandomPowerGates
 {
     class AiManager
     {
+        private Vector2 tempPosition;
+        private Rectangle tempBounds;
         public AiManager()
         {
             //tři testovací boti, kteří zmizí pokud se jich dotkne hráč
-            addAI(new Vector2(1000, 700));
-            addAI(new Vector2(500, 700));
-            addAI(new Vector2(1000, 50));
+            SpawnGroup(3);
+        }
+        //spawnování skupiny
+        public void SpawnGroup(int amount)
+        {
+            addNpc(new Vector2(Global.instance.rng.Next(200, 1000), Global.instance.rng.Next(100, 700)));
+            for (int i = 0; i < amount - 1; i++)
+            {
+                tempPosition = new Vector2(Global.instance.rng.Next(200, 1000), Global.instance.rng.Next(100, 700));
+                tempBounds = new Rectangle((int)tempPosition.X, (int)tempPosition.Y, 40, 40);
+
+
+                if (tempBounds.Intersects(Global.instance.npcs[i].objectBounds))
+                    i--;
+                else
+                    addNpc(tempPosition);
+
+            }
+            LoadContent(Global.instance.contentManager);
         }
         //metoda pro přidání NPC na herní plochu
-        public void addAI(Vector2 npcPosition)
+        public void addNpc(Vector2 npcPosition)
         {
             Global.instance.npcs.Add(new Npc(npcPosition, 500, 1));
         }
@@ -56,6 +74,7 @@ namespace RandomPowerGates
                         Global.instance.npcs.RemoveAt(k);
                         Global.instance.projectiles.RemoveAt(i);
                         i--; k--;
+                        Global.instance.player.points++;
                     }
                 }
             }

@@ -23,13 +23,35 @@ namespace RandomPowerGates
 
         //instance objektu Global
         public static readonly Global instance = new Global();
+        //Obsah
+        public ContentManager contentManager;
+        //RANDOM
+        public Random rng = new Random();
         //Mapa
         public MapManager mapManager;
         public int windowWidth, windowHeight;
+        public List<Map> maps = new List<Map>();
+        public int warpIndex = 0;
 
-        public List<Wall> walls = new List<Wall>();
-        public Map map;
-        public List<Portal> poratls = new List<Portal>();
+        public List<Wall> walls1 = new List<Wall>();
+        public List<Portal> portals1 = new List<Portal>();
+
+        public List<Wall> walls2 = new List<Wall>();
+        public List<Portal> portals2 = new List<Portal>();
+
+        public List<Wall> walls3 = new List<Wall>();
+        public List<Portal> portals3 = new List<Portal>();
+
+        public List<Wall> walls4 = new List<Wall>();
+        public List<Portal> portals4 = new List<Portal>();
+
+        public List<Wall> walls5 = new List<Wall>();
+        public List<Portal> portals5 = new List<Portal>();
+
+
+
+        //Debug
+        public DebugManager debugManager = new DebugManager();
 
         //Pozadí
         public BackGround background;

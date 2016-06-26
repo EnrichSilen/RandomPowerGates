@@ -42,8 +42,8 @@ namespace RandomPowerGates
             if (delay > 0)
                 delay -= 25;
 
-            
-    }
+
+        }
 
         //metoda vykonávající logiku
         public void Update(GameTime gameTime)
@@ -72,11 +72,11 @@ namespace RandomPowerGates
                 p.Draw(spriteBatch);
             }
 
-            for (int k = 0; k < Global.instance.walls.Count; k++)
+            for (int k = 0; k < Global.instance.walls1.Count; k++)
             {
                 for (int i = 0; i < Global.instance.projectiles.Count; i++)
                 {
-                    if (Global.instance.projectiles[i].objectBounds.Intersects(Global.instance.walls[k].objectBounds))
+                    if (Global.instance.projectiles[i].objectBounds.Intersects(Global.instance.walls1[k].objectBounds))
                     {
                         Global.instance.projectiles.RemoveAt(i);
                         i--;
